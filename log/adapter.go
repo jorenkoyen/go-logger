@@ -3,6 +3,7 @@ package log
 import (
 	"github.com/jorenkoyen/go-logger"
 	golog "log"
+	"strings"
 )
 
 type Adapter struct {
@@ -18,7 +19,8 @@ func NewAdapter(name string, level logger.Level) *Adapter {
 }
 
 func (a *Adapter) Write(p []byte) (n int, err error) {
-	a.logger.Log(a.level, string(p))
+	// raw byte message includes newline character
+	a.logger.Log(a.level, strings.TrimSpace(string(p)))
 	return len(p), nil
 }
 
