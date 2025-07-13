@@ -165,9 +165,9 @@ func (l *Logger) should(lvl Level) bool {
 	}
 }
 
-// log is the function available to user to log message, lvl specifies the severity of the message
-// whilst message contains the actual information.
-func (l *Logger) log(lvl Level, message string) {
+// Log is the function available for the user to log messages, lvl specifies the severity of the message
+// whilst the message contains the actual information.
+func (l *Logger) Log(lvl Level, message string) {
 	enabled := l.should(lvl)
 	if !enabled {
 		return // skip log line
@@ -210,19 +210,19 @@ func (l *Logger) WithName(name string) *Logger {
 
 // Panic is just like Fatal except that it is followed by a call to panic.
 func (l *Logger) Panic(message string) {
-	l.log(LevelFatal, message)
+	l.Log(LevelFatal, message)
 	panic(message)
 }
 
 // Panicf is just like Fatalf except that it is followed by a call to panic.
 func (l *Logger) Panicf(format string, a ...interface{}) {
-	l.log(LevelFatal, fmt.Sprintf(format, a...))
+	l.Log(LevelFatal, fmt.Sprintf(format, a...))
 	panic(fmt.Sprintf(format, a...))
 }
 
 // Fatal logs a message at a Fatal Level that is followed by an OS exit code.
 func (l *Logger) Fatal(message string) {
-	l.log(LevelFatal, message)
+	l.Log(LevelFatal, message)
 	if !l.ignoreExit {
 		os.Exit(1)
 	}
@@ -230,7 +230,7 @@ func (l *Logger) Fatal(message string) {
 
 // Fatalf logs a message at Fatal level that is followed by an OS exit code.
 func (l *Logger) Fatalf(format string, a ...interface{}) {
-	l.log(LevelFatal, fmt.Sprintf(format, a...))
+	l.Log(LevelFatal, fmt.Sprintf(format, a...))
 	if !l.ignoreExit {
 		os.Exit(1)
 	}
@@ -238,50 +238,50 @@ func (l *Logger) Fatalf(format string, a ...interface{}) {
 
 // Error logs a message at Error level.
 func (l *Logger) Error(message string) {
-	l.log(LevelError, message)
+	l.Log(LevelError, message)
 }
 
 // Errorf logs a message at Error level.
 func (l *Logger) Errorf(format string, a ...interface{}) {
-	l.log(LevelError, fmt.Sprintf(format, a...))
+	l.Log(LevelError, fmt.Sprintf(format, a...))
 }
 
 // Warning logs a message at Warning level
 func (l *Logger) Warning(message string) {
-	l.log(LevelWarning, message)
+	l.Log(LevelWarning, message)
 }
 
 // Warningf logs a message at Warning level.
 func (l *Logger) Warningf(format string, a ...interface{}) {
-	l.log(LevelWarning, fmt.Sprintf(format, a...))
+	l.Log(LevelWarning, fmt.Sprintf(format, a...))
 }
 
 // Info logs a message at Info level.
 func (l *Logger) Info(message string) {
-	l.log(LevelInfo, message)
+	l.Log(LevelInfo, message)
 }
 
 // Infof logs a message at Info level.
 func (l *Logger) Infof(format string, a ...interface{}) {
-	l.log(LevelInfo, fmt.Sprintf(format, a...))
+	l.Log(LevelInfo, fmt.Sprintf(format, a...))
 }
 
 // Debug logs a message at Debug level.
 func (l *Logger) Debug(message string) {
-	l.log(LevelDebug, message)
+	l.Log(LevelDebug, message)
 }
 
 // Debugf logs a message at Debug level.
 func (l *Logger) Debugf(format string, a ...interface{}) {
-	l.log(LevelDebug, fmt.Sprintf(format, a...))
+	l.Log(LevelDebug, fmt.Sprintf(format, a...))
 }
 
 // Trace logs a message at Debug level.
 func (l *Logger) Trace(message string) {
-	l.log(LevelTrace, message)
+	l.Log(LevelTrace, message)
 }
 
 // Tracef logs a message at Debug level.
 func (l *Logger) Tracef(format string, a ...interface{}) {
-	l.log(LevelTrace, fmt.Sprintf(format, a...))
+	l.Log(LevelTrace, fmt.Sprintf(format, a...))
 }
